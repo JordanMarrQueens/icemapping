@@ -357,6 +357,13 @@ mapSocket.on('connection', function(socket){
             mapTargets.targets.splice(index, 1);
         } else {console.log('error deleting')}
     });
+
+    socket.on('log-data', function() {
+	  writer = fs.createWriteStream("data_log")
+          for (i = 0; i < mapTargets.count; i++) {
+    		writer.write(mapTargets.targets[i].lat + "\t" + mapTargets.targets[i].lon + "\t" +mapTargets.targets[i].label + "\n")
+	  }
+    }); 
        
 });   
    

@@ -25,13 +25,6 @@ $('input').on('keypress', function (e) {
 	}
 })
 
-//Allow form submission by keybord return
-//$('input').on('keypress', function (e) {
-//	if (e.keyCode == 40) {
-//		mapSocket.emit('locationUpdate', {latitude: 44.221022, longitude: -76.497743, heading: 0})
-//TODO:move rover
-//	}
-//})
 
 //what we do on button click
 $('button#add-pin-location').on('click', function (evt) {
@@ -65,6 +58,11 @@ $('button#grab-rover-location').on('click', function (evt) {
 	$('input#latitude').focus().val(qsetMap.markers[0].marker.getLatLng().lat)
 	$('input#longitude').focus().val(qsetMap.markers[0].marker.getLatLng().lng)
 	$('input#label').focus()
+});
+
+$('button#log-data').on('click', function (evt) {
+	mapSocket.emit('log-data');
+	
 });
 
 function deleteTargetMarker(id) {
