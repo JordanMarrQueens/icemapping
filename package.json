@@ -1,0 +1,14 @@
+{
+  "name": "node-rover",
+  "version": "0.0.1",
+  "description": "The application to be run on the QSET Mars Rover",
+  "dependencies": {
+    "express": "^4.13.3",
+    "mbtiles": "^0.8.1",
+    "onoff": "^1.0.3",
+    "python-shell": "^0.2.0",
+    "serialport": "^2.0.2",
+    "socket.io": "^1.3.7",
+    "tessera": "^0.5.3"
+  }
+}

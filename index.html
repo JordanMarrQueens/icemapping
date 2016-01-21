@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta charset="UTF-8">
+    <title>Ice Thickness</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="/css/material_icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" href="/css/leaflet.css">
+
+</head>
+<body>
+	<!--
+    <nav class="red darken-3">
+        <div class="nav-wrapper">
+            <div class="col s12">
+                <a href="#!" class="brand-logo">QSET</a>
+                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="#">Logout</a></li>
+                </ul>
+                <ul class="side-nav fixed" id="mobile-demo">
+                    <li><a><img src="/images/qsetpic_small.png" height="50px" style="padding-top:15px"/></a></li>
+                    <li><a href="index">Home</a></li>
+                    <li><a href="control">Control</a></li>
+                    <li class="active"><a href="map">GPS</a></li>
+                    <li><a href="science">Science</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    -->
+    <div class="content" style="height:88vh">
+        <div class="row" style="height:100%">
+            
+            <div class="col s8" style="height:100%">
+                <div class="card-panel" style="height:100%;">
+                   <!-- A map goes here <!--Google Maps embed?-->
+                    <div id="map" style="height:100%">
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col s4">
+                <div class="card-panel">
+                    
+                    <div class="section"> <!--Section for adding a new location to the map-->
+                       <div class="input-field row">
+			<div class="input-field col s6">
+                           <input id="label" type="text" class="col s12 validate">
+                           <label for="label">Ice Thickness (mm)</label>
+			</div>
+                           <button id="acquire-thickness" class="btn waves-effect col s3">Acquire</button>
+                       </div>
+                       <div class="input-field row">
+                           <div class="input-field col s6">
+                               <input id="latitude" type="text" class="validate">
+                               <label for="latitude">Latitude</label>
+                           </div>
+                           <div class="input-field col s6">
+                               <input id="longitude" type="text" class="validate">
+                               <label for="longitude">Longitude</label>
+                           </div>
+                       </div>
+                       <div class="row">
+                           <button id="grab-rover-location" class="btn-floating secondary-content"><i class="material-icons">my_location</i></button> <!--Fills the lat/lon fields with current location --Should this be rover's location or base location?? -->
+                           <button id="add-pin-location" class="btn waves-effect col s3">Add</button>
+                       </div>
+                     </div>
+                     <div class="divider"></div>
+                     
+                     <div class="section"> <!--Lists all currently pinned locations. Allows for removal. Editing maybe?-->
+                         <ul class="collection" id="map-targets">
+                             
+                             <li class="collection-item avatar">
+                                <i class="material-icons circle red">location_on</i>
+                                    <span class="title">Label</span>
+                                    <p class="detail-text">Latitude<br>
+                                       Longitude
+                                    </p>
+                                    <button href="#!" class="secondary-content btn-floating"><i class="material-icons">delete</i></button>
+                             </li>
+                             
+                             
+                         </ul>
+                         
+                     </div>
+                </div>
+            </div>
+        
+        </div>
+    </div>
+
+
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script src="js/materialize.min.js"></script>
+    <script src="js/leaflet.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/mapController.js"></script>
+    <script src="js/map.js"></script>
+
+    <script>
+        //var socket = io();
+        $(".button-collapse").sideNav();
+        qsetMap.init('map', 'gps')
+                
+    </script>
+</body>
+</html>
