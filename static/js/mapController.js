@@ -27,38 +27,14 @@ var iceMap = {
 		})
 
 				
-		mapSocket.on('locationUpdate', function(newLocation){
-			var lat = newLocation.latitude;
-			var lon = newLocation.longitude;
-			var deg = newLocation.heading;
-			
-			iceMap.markers[0].marker.setLatLng([lat, lon]); //update the location of the icon
-			
-			//update rotation
-			var id = '.rover-location-icon';
-			//console.log($(id).css('transform'))
-			var tx = parseInt($(id).css('transform').split(',')[4])
-			var ty = parseInt($(id).css('transform').split(',')[5])
-			//console.log('tx: '+tx+' ty: '+ty)
-			
-			var trString = 'translate3d('+tx+'px, '+ty+'px, 0px) rotate('+deg+'deg)';
-			console.log(trString)
-			$(id).css('transform', trString); //update the rotation of the icon
-			iceMap.markers[0].heading = deg; //store the heading for later retrieval if needed
-			
-			//the drivers view is always centerd on the rover
-			if(role==='drive'){
-				iceMap.qMap.setView([lat,lon]);
-			};
-			
-		});
+		
 		
 		
 		//Initiate extra bits depending on the context of this map
 		if(role === 'gps'){ //enable click on the GPS map
 			this.qMap.on('click', this.onMapClick);
 		}
-		if(role === 'gps' || role === 'drive'){
+		if(role === 'gps'){
 			mapSocket.on('targets', function(targetList){
 				for(var target of targetList){
 					iceMap.addMarker(target.label, [target.lat, target.lon], (target.data||null), target.id);
