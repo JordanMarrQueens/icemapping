@@ -2,6 +2,8 @@ var buildListItem = function(target){return '<li id="target-'+target.id+'" class
 }
 var mapSocket = io(window.location.origin + '/map');
 
+
+
 $('ul#map-targets').empty(); //empty any elements already in the list immediatly on load.
 
 //prep to deal with adding targets and add it to the sidebar
@@ -18,6 +20,10 @@ mapSocket.on('targets', function(targetList) {
 	 }
 });
 
+mapSocket.on('thickness', function(received_thickness) {
+	$('input#label').focus().val(received_thickness)
+});
+
 //Allow form submission by keybord return
 $('input').on('keypress', function (e) {
 	if (e.keyCode == 13) {
@@ -25,6 +31,28 @@ $('input').on('keypress', function (e) {
 	}
 })
 
+$(document).on('keypress', function (e) {
+	if (e.keyCode == 37) {		
+		lat = qsetMap.markers[0].marker.getLatLng().lat;
+		lng = qsetMap.markers[0].marker.getLatLng().lng - 0.0001;
+		qsetMap.markers[0].marker.setLatLng([lat, lng]);
+	}
+	else if (e.keyCode == 38) {		
+		lat = qsetMap.markers[0].marker.getLatLng().lat + 0.0001;
+		lng = qsetMap.markers[0].marker.getLatLng().lng;
+		qsetMap.markers[0].marker.setLatLng([lat, lng]);
+	}
+	else if (e.keyCode == 39) {		
+		lat = qsetMap.markers[0].marker.getLatLng().lat;
+		lng = qsetMap.markers[0].marker.getLatLng().lng + 0.0001;
+		qsetMap.markers[0].marker.setLatLng([lat, lng]);
+	}
+	else if (e.keyCode == 40) {		
+		lat = qsetMap.markers[0].marker.getLatLng().lat - 0.0001;
+		lng = qsetMap.markers[0].marker.getLatLng().lng;
+		qsetMap.markers[0].marker.setLatLng([lat, lng]);
+	}
+})
 
 //what we do on button click
 $('button#add-pin-location').on('click', function (evt) {
@@ -62,6 +90,11 @@ $('button#grab-rover-location').on('click', function (evt) {
 
 $('button#log-data').on('click', function (evt) {
 	mapSocket.emit('log-data');
+	
+});
+
+$('button#acquire-thickness').on('click', function (evt) {
+	mapSocket.emit('acquire-thickness');
 	
 });
 
