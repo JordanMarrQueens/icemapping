@@ -33,24 +33,24 @@ $('input').on('keypress', function (e) {
 
 $(document).on('keypress', function (e) {
 	if (e.keyCode == 37) {		
-		lat = qsetMap.markers[0].marker.getLatLng().lat;
-		lng = qsetMap.markers[0].marker.getLatLng().lng - 0.0001;
-		qsetMap.markers[0].marker.setLatLng([lat, lng]);
+		lat = iceMap.markers[0].marker.getLatLng().lat;
+		lng = iceMap.markers[0].marker.getLatLng().lng - 0.0001;
+		iceMap.markers[0].marker.setLatLng([lat, lng]);
 	}
 	else if (e.keyCode == 38) {		
-		lat = qsetMap.markers[0].marker.getLatLng().lat + 0.0001;
-		lng = qsetMap.markers[0].marker.getLatLng().lng;
-		qsetMap.markers[0].marker.setLatLng([lat, lng]);
+		lat = iceMap.markers[0].marker.getLatLng().lat + 0.0001;
+		lng = iceMap.markers[0].marker.getLatLng().lng;
+		iceMap.markers[0].marker.setLatLng([lat, lng]);
 	}
 	else if (e.keyCode == 39) {		
-		lat = qsetMap.markers[0].marker.getLatLng().lat;
-		lng = qsetMap.markers[0].marker.getLatLng().lng + 0.0001;
-		qsetMap.markers[0].marker.setLatLng([lat, lng]);
+		lat = iceMap.markers[0].marker.getLatLng().lat;
+		lng = iceMap.markers[0].marker.getLatLng().lng + 0.0001;
+		iceMap.markers[0].marker.setLatLng([lat, lng]);
 	}
 	else if (e.keyCode == 40) {		
-		lat = qsetMap.markers[0].marker.getLatLng().lat - 0.0001;
-		lng = qsetMap.markers[0].marker.getLatLng().lng;
-		qsetMap.markers[0].marker.setLatLng([lat, lng]);
+		lat = iceMap.markers[0].marker.getLatLng().lat - 0.0001;
+		lng = iceMap.markers[0].marker.getLatLng().lng;
+		iceMap.markers[0].marker.setLatLng([lat, lng]);
 	}
 })
 
@@ -64,7 +64,7 @@ $('button#add-pin-location').on('click', function (evt) {
 	target.createTime = Date();
 	target.type = 'gps'
 
-	qsetMap.qMap.closePopup(); //closes ANY and ALL open popups on the map
+	iceMap.qMap.closePopup(); //closes ANY and ALL open popups on the map
 
 	//Reset the form fields once we've added the data. (also have to use the focus hack here, because Materialize)
 	$('input#label').val('').focus()
@@ -83,8 +83,8 @@ $('button#add-pin-location').on('click', function (evt) {
 });
 
 $('button#grab-rover-location').on('click', function (evt) {
-	$('input#latitude').focus().val(qsetMap.markers[0].marker.getLatLng().lat)
-	$('input#longitude').focus().val(qsetMap.markers[0].marker.getLatLng().lng)
+	$('input#latitude').focus().val(iceMap.markers[0].marker.getLatLng().lat)
+	$('input#longitude').focus().val(iceMap.markers[0].marker.getLatLng().lng)
 	$('input#label').focus()
 });
 
@@ -100,6 +100,6 @@ $('button#acquire-thickness').on('click', function (evt) {
 
 function deleteTargetMarker(id) {
 	$('li#target-' + id).remove();
-	qsetMap.removeMarker(id);
+	iceMap.removeMarker(id);
 	mapSocket.emit('delete-marker', id);
 }

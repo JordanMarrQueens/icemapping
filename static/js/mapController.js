@@ -1,5 +1,5 @@
 var mapSocket = io(window.location.origin + '/map');
-var qsetMap = {
+var iceMap = {
 	popup : L.popup({offset:[10,10]}),
 	markerIcon :  L.icon({iconUrl: '../images/marker-icon.png', shadowUrl: '../images/marker-shadow.png', iconAnchor: [12, 40], iconSize:[24, 40], popupAnchor:[0,-30]}),
 	roverIcon :  L.icon({iconUrl: '../images/cursor.png', iconSize:[20, 20], className : 'rover-location-icon'}),
@@ -20,7 +20,7 @@ var qsetMap = {
 			var tx = parseInt($(id).css('transform').split(',')[4])
 			var ty = parseInt($(id).css('transform').split(',')[5])
 			//console.log('tx: '+tx+' ty: '+ty)
-			var deg = qsetMap.markers[0].heading;
+			var deg = iceMap.markers[0].heading;
 			var trString = 'translate3d('+tx+'px, '+ty+'px, 0px) rotate('+deg+'deg)';
 			//console.log(trString)
 			$(id).css('transform', trString); //update the rotation of the icon
@@ -32,7 +32,7 @@ var qsetMap = {
 			var lon = newLocation.longitude;
 			var deg = newLocation.heading;
 			
-			qsetMap.markers[0].marker.setLatLng([lat, lon]); //update the location of the icon
+			iceMap.markers[0].marker.setLatLng([lat, lon]); //update the location of the icon
 			
 			//update rotation
 			var id = '.rover-location-icon';
@@ -44,11 +44,11 @@ var qsetMap = {
 			var trString = 'translate3d('+tx+'px, '+ty+'px, 0px) rotate('+deg+'deg)';
 			console.log(trString)
 			$(id).css('transform', trString); //update the rotation of the icon
-			qsetMap.markers[0].heading = deg; //store the heading for later retrieval if needed
+			iceMap.markers[0].heading = deg; //store the heading for later retrieval if needed
 			
 			//the drivers view is always centerd on the rover
 			if(role==='drive'){
-				qsetMap.qMap.setView([lat,lon]);
+				iceMap.qMap.setView([lat,lon]);
 			};
 			
 		});
@@ -61,14 +61,14 @@ var qsetMap = {
 		if(role === 'gps' || role === 'drive'){
 			mapSocket.on('targets', function(targetList){
 				for(var target of targetList){
-					qsetMap.addMarker(target.label, [target.lat, target.lon], (target.data||null), target.id);
+					iceMap.addMarker(target.label, [target.lat, target.lon], (target.data||null), target.id);
 				}
 			});
 			
 			mapSocket.on('target-added', function(target){
-				qsetMap.addMarker(target.label, [target.lat, target.lon], (target.data||null), target.id);
+				iceMap.addMarker(target.label, [target.lat, target.lon], (target.data||null), target.id);
 			});
-			mapSocket.on('target-deleted', qsetMap.removeMarker);
+			mapSocket.on('target-deleted', iceMap.removeMarker);
 			
 		}
 		
@@ -82,7 +82,7 @@ var qsetMap = {
 		var popup = this.mapPopup = L.popup();
 		popup.setLatLng(evt.latlng);
 		popup.setContent('<div style="float:left;">Lat: '+evt.latlng.lat + '</br>Lon: '+evt.latlng.lng+'</div><button style="" id="pin-this-location" class="btn waves">Pin</button>');
-		popup.openOn(qsetMap.qMap);
+		popup.openOn(iceMap.qMap);
 		
 		$('button#pin-this-location').on('click', function(e){
 			$('input#latitude').focus().val(evt.latlng.lat)
@@ -99,14 +99,14 @@ var qsetMap = {
 	},
 	
 	removeMarker : function(delID){
-		var index = qsetMap.markers.findIndex(function(itm){
+		var index = iceMap.markers.findIndex(function(itm){
 			if(itm.id === delID ) return true;
 			return false;
 		});
 		
 		if(~index){
-			qsetMap.qMap.removeLayer(qsetMap.markers[index].marker)
-			qsetMap.markers.splice(index,1)
+			iceMap.qMap.removeLayer(iceMap.markers[index].marker)
+			iceMap.markers.splice(index,1)
 		} else {console.log('Error Deleting (or already deleted) id: '+delID)}
 	},
 	
