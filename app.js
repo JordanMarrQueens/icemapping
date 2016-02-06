@@ -1,5 +1,6 @@
 var IS_PI = false;
 var IS_MC = false; //set to true to use Proportional-Integral Motor Control for the wheels
+var IS_SER = true; //serial comms? (y/n)
 
 var express = require('express');
 var app = express();
@@ -19,6 +20,10 @@ var mapTargets =  { count : 0, targets : [], gps : {latitude : 44.198100, longit
 var serialport = require("serialport");
 var gpsPort = new serialport.SerialPort("/dev/ttyAMA0", {
   baudrate: 9600,
+  parser: serialport.parsers.readline("\n")
+});
+var ardPort = new serialport.SerialPort("/dev/ttyACM0", {
+  baudrate: 115200,
   parser: serialport.parsers.readline("\n")
 });
 var mapSocket = io.of('/map'), camSocket = io.of('/cam'), sensorSocket = io.of('/sensor');

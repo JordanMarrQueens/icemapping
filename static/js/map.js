@@ -25,6 +25,15 @@ $('input').on('keypress', function (e) {
 	}
 })
 
+//Allow form submission by keybord return
+$('input').on('keypress', function (e) {
+	if (e.keyCode == 40) {		
+		lat = qsetMap.markers[0].marker.getLatLng().lat - 0.0001;
+		lng = qsetMap.markers[0].marker.getLatLng().lng;
+		console.log(lat)
+		qsetMap.markers[0].marker.setLatLng([lat, lng]);
+	}
+})
 
 //what we do on button click
 $('button#add-pin-location').on('click', function (evt) {
