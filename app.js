@@ -22,10 +22,6 @@ var gpsPort = new serialport.SerialPort("/dev/ttyAMA0", {
   baudrate: 9600,
   parser: serialport.parsers.readline("\n")
 });
-var ardPort = new serialport.SerialPort("/dev/ttyACM0", {
-  baudrate: 115200,
-  parser: serialport.parsers.readline("\n")
-});
 var mapSocket = io.of('/map'), camSocket = io.of('/cam'), sensorSocket = io.of('/sensor');
 
 var partValues = {};
@@ -400,7 +396,6 @@ Object.observe(mapTargets.gps, function(changes){
        } 
     });
 });
-
 
 ///////////////////////////////////////////////////
 ///////////////// Camera stuff ////////////////////
