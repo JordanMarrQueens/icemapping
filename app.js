@@ -1,6 +1,5 @@
 var IS_PI = false;
 var IS_MC = false; //set to true to use Proportional-Integral Motor Control for the wheels
-var IS_SER = true; //serial comms? (y/n)
 
 var express = require('express');
 var app = express();
@@ -396,6 +395,7 @@ Object.observe(mapTargets.gps, function(changes){
        } 
     });
 });
+
 
 ///////////////////////////////////////////////////
 ///////////////// Camera stuff ////////////////////

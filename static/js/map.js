@@ -1,15 +1,3 @@
-var serialport = require("serialport");
-//var ardPort = new serialport.SerialPort("/dev/ttyACM0", {
-//  baudrate: 115200,
-//  parser: serialport.parsers.readline("\n")
-//});
-
-var thickness = 4000;
-
-//ardPort.on('data', function updateThickness(data) {
-//	thickness = data;
-//});
-
 var buildListItem = function(target){return '<li id="target-'+target.id+'" class="collection-item avatar"><i class="material-icons circle red">location_on</i> <span class="target-label">'+target.label+'</span> <p class="detail-text">'+target.lat+'<br>'+target.lon+' </p> <button onClick="deleteTargetMarker('+target.id+')" href="#!" class="secondary-content btn-floating"><i class="material-icons">delete</i></button></li>'
 }
 var mapSocket = io(window.location.origin + '/map');
@@ -37,14 +25,6 @@ $('input').on('keypress', function (e) {
 	}
 })
 
-//Allow form submission by keybord return
-$('input').on('keypress', function (e) {
-	if (e.keyCode == 40) {		
-		lat = qsetMap.markers[0].marker.getLatLng().lat - 0.0001;
-		lng = qsetMap.markers[0].marker.getLatLng().lng;
-		qsetMap.markers[0].marker.setLatLng([lat, lng]);
-	}
-})
 
 //what we do on button click
 $('button#add-pin-location').on('click', function (evt) {
@@ -82,11 +62,6 @@ $('button#grab-rover-location').on('click', function (evt) {
 
 $('button#log-data').on('click', function (evt) {
 	mapSocket.emit('log-data');
-	
-});
-
-$('button#acquire-thickness').on('click', function (evt) {
-	$('input#label').focus().val(4*thickness/1000)
 	
 });
 

@@ -1,7 +1,7 @@
 {
-  "name": "node-icemapping",
+  "name": "node-rover",
   "version": "0.0.1",
-  "description": "Application for mapping ice thickness",
+  "description": "The application to be run on the QSET Mars Rover",
   "dependencies": {
     "express": "^4.13.3",
     "mbtiles": "^0.8.1",
